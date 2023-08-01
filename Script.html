@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Player and WpForm/or other, only at the end of the video</title>
+</head>
+<body>
+  <div id="player"></div>
+  <div id="form" style="display: none;">
+    <!-- Insert your WPForms or other shortcode here -->
+    [wpforms id="350"]
+  </div>
+
+  <script>
+    // Function called when the video ends
+    function showForm() {
+      document.getElementById('form').style.display = 'block';
+    }
+
+    // Code to load and handle the YouTube video
+    function onYouTubeIframeAPIReady() {
+      const player = new YT.Player('player', {
+        videoId: 'pBy1zgt0XPc', // Replace with the ID of your YouTube video
+        events: {
+          onStateChange: function (event) {
+            if (event.data === YT.PlayerState.ENDED) {
+              showForm();
+            }
+          }
+        }
+      });
+    }
+
+    // Code to load the YouTube Iframe API
+    (function () {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    })();
+  </script>
+</body>
+</html>
